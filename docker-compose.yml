@@ -1,0 +1,30 @@
+services:
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    ports:
+      - "5174:5174"
+    container_name: doctor-admin
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5175:5175"
+    container_name: doctor-client
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    container_name: doctor-server
+    restart: unless-stopped
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb+srv://Subbarayudu:Subba@cluster0.tzkcl.mongodb.net
